@@ -14,10 +14,7 @@ listobj(lemon_tile     ,0,spr_ground       ,0,lemon_tile)
                     //0 is level
                     //1 is deco
                     //2 is warp
-listobj(customobject    ,0,spr_anchor       ,0,customobject)
-    listdoc("Custom Object","")
-    listargs("mytype","data_1","data_2","data_3","data_4","data_5","data_6","data_7","data_8","data_9","data_10","data_11")
-    listdata("sayhi" ,""      ,""      ,""      ,""      ,""      ,""      ,""      ,""      ,""      ,""       ,""       )
+
 
 listobj(groundblock     ,0,spr_ground       ,0,groundblock)
     listdoc("Ground","")
@@ -1086,6 +1083,20 @@ listobj(iceblock       ,0,spr_iceblock        ,236,itembox)
     listdata("0","")
 
 
+listobj(customobject    ,0,spr_anchor       ,237,customobject)
+    listdoc("Custom Object","")
+    listargs("mytype","data_1","data_2","data_3","data_4","data_5","data_6","data_7","data_8","data_9","data_10","data_11")
+    listdata("Collectible" ,""      ,""      ,""      ,""      ,""      ,""      ,""      ,""      ,""      ,""       ,""       )
+
+listobj(camblock     ,0,spr_camblock16      ,238,camblock)
+    listdoc("Camera Block"," Place this down to block the camera from viewing this tile wherever possible.")
+    listargs("align","left","right","top","bottom","sizex","sizey")
+    listdata("0","","","","","1","1")
+
+listobj(camsecret     ,0,spr_camsecret16      ,239,camblock)
+    listdoc("Camera Secret"," Place this down to block the camera from viewing this tile unless the player is inside it. The player HAS to be touching the object for the secret to be revealed!")
+    listargs("align","left","right","top","bottom","sizex","sizey")
+    listdata("0","","","","","1","1")
 
 n=ds_map_create()
 k=ds_map_find_first(m)

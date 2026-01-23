@@ -135,7 +135,9 @@ if returnnobody return noone
 if (!o && (object_index=player||object_index=charmdeath)) {
 
 
-    if (name="kid") o=instance_place(x+argument[0],y+argument[1],kidground)
+    o=instance_place(x+argument[0],y+argument[1],charground)
+    if o if o.name!=name o=noone
+
     if (!o && (jesus || jeezus || jesus_mercy)) {
         o=instance_place(x+argument[0],y+argument[1],waterblock)
 
@@ -143,7 +145,7 @@ if (!o && (object_index=player||object_index=charmdeath)) {
         if (!o) {
             if (y>region.water-12-argument[1] ) {
                 walter.y=region.water-12-argument[1]
-                if (vsp>0 || bbox_top<walter.y-1+walter.vsp) return noone
+                if (vsp<0 || bbox_bottom>(other.y+1+vsp)) return noone
                 if splashtimer == 0 {
                     water_splash(-1)
                     splashtimer = 120
@@ -151,7 +153,7 @@ if (!o && (object_index=player||object_index=charmdeath)) {
                 return walter
             } else splashtimer=max(splashtimer-1,0)
         }else if (o) {
-            if (vsp>0 || bbox_top<o.y-1+vsp) return noone
+            if (vsp<0 || bbox_bottom>(other.y+1+vsp))  return noone
                 if splashtimer == 0 {
                     water_splash(-1)
                     splashtimer = 120

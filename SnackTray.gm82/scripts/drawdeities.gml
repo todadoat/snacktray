@@ -1,8 +1,26 @@
-if obj!=customobject
+if obj!=customobject && obj!=camblock && obj!=camsecret
 draw_sprite_ext(spr,frame,x*16+off+off2x,y*16+off+off2y,1,1,0,c_white,draw_get_alpha())
 
 switch(obj) {
+    case camblock: {
+        draw_sprite_stretched(spr_camblock,0,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[3],0) draw_sprite_stretched(spr_camblock,1,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[2],0) draw_sprite_stretched(spr_camblock,2,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[4],0) draw_sprite_stretched(spr_camblock,3,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[1],0) draw_sprite_stretched(spr_camblock,4,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        draw_sprite_ext(spr,frame,x*16,y*16,1,1,0,c_white,draw_get_alpha())
 
+
+    break;}
+    case camsecret:{
+        draw_sprite_stretched(spr_camsecret,0,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[3],0) draw_sprite_stretched(spr_camsecret,1,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[2],0) draw_sprite_stretched(spr_camsecret,2,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[4],0) draw_sprite_stretched(spr_camsecret,3,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        if unreal(data[1],0) draw_sprite_stretched(spr_camsecret,4,x*16+off+off2x,y*16+off+off2y,unreal(data[5],1)*16,unreal(data[6],1)*16)
+        draw_sprite_ext(spr,frame,x*16,y*16,1,1,0,c_white,draw_get_alpha())
+
+    }
     case (customobject):{
         if !variable_global_get("cobject_code_"+string(data[0])) {
             if !file_exists(globalmanager.moddir+"object\"+string(data[0])+"\object.gml") {break}

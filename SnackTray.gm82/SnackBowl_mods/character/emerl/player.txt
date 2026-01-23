@@ -1,11 +1,11 @@
-[sonic]
-name=Sonic
+[emerl]
+name=Emerl
 
 icon speed=6
 icon loop=yes
 animation speed=1.0
 center x=17
-center y=15
+center y=17
 box width=34
 box height=34
 short small form=1
@@ -21,18 +21,18 @@ mini sheet=0
 
 skin offset=44
 use paletting=true
-defaultspray 1=2
-defaultspray 2=6
-defaultspray 3=5
+defaultspray 1=0
+defaultspray 2=0
+defaultspray 3=0
 defaultspray 4=0
 
 snack layout=true
 
 
 max sizes=9
-
+total palettes=9
 single sheet=true
-singlesheet split width=559,8,8,8,8,8,8,8,8,8
+singlesheet split width=8,8,8,8,8,8,8,8,8,8
 singlesheet split height=0,0,0,0,0,0,0,0,0,0
 
 sheet splits=flagslide

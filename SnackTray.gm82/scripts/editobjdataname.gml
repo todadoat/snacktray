@@ -6,6 +6,18 @@ t=funnytruefalse(i)
 
 if (string(i)="") i="[unset]"
 switch (argument[0]) {
+
+    case camblock: case camsecret:
+    if !type return "Align: "+string(i)
+    if type=1 return "Left Border: "+string(funnytruefalse(i))
+    if type=2 return "Right Border: "+string(funnytruefalse(i))
+    if type=3 return "Top Border: "+string(funnytruefalse(i))
+    if type=4 return "Bottom Border: "+string(funnytruefalse(i))
+    if type=5 return "X Size: "+string(i)
+    if type=6 return "Y Size: "+string(i)
+
+    break;
+
     case customobject:
         if type>0{
             global.cobjectlemonreturnvalue="[NO DATA]"

@@ -3,6 +3,16 @@ var type,i;
 type=argument[1]
 
 switch (argument[0]) {
+    case camsecret: case camblock:
+    if type==6 return get_string("Size (y):",argument[2])
+    if type==5 return get_string("Size (x):",argument[2])
+    if (type>=1) return string(!funnytruefalse(argument[2]))
+    return get_string("Alignment in pixels (x,y):",argument[2])
+
+
+    break;
+
+
     case customobject:
         if type>0{
             global.cobjectlemonreturnvalue="[NO DATA]"

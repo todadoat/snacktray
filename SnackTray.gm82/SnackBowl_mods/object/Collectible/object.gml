@@ -13,8 +13,8 @@ switch(global.cobjectentrypoint){
 		realtype=unreal(data_1,0)
 		/*
 			0- Purp Coin
-			1- Green Coin
-			2- That fuck ass triangle we dont even see in game
+			1- Rupee
+			2- That fuck ass Triforce Shard we dont even see in game
 			
 			3- Note
 			
@@ -35,7 +35,7 @@ switch(global.cobjectentrypoint){
 		switch(realtype){
 			case 0: type=0  hud_x=79 hud_y=0 hud_side=0 break;
 			case 1: type=0  hud_x=73 hud_y=17 hud_side=0 break;
-			case 2: type=0  frmax=8 hud_x=67 hud_y=34 hud_side=0 break;
+			case 2: type=1  frmax=8 hud_x=67 hud_y=34 hud_side=0 break;
 			case 3: type=1  hud_x=148 hud_y=0 hud_side=2 break;
 			case 4: type=2  hud_x=-40 hud_y=17 hud_side=1 break;
 			case 5: type=2  hud_x=-20 hud_y=17 hud_side=1 break;
@@ -86,7 +86,10 @@ switch(global.cobjectentrypoint){
 		} else {
 			if type!=1
 			frame+=0.20
-			else {frame=round((global.itemframe/4)*frmax)
+			else {
+			if frmax=4
+			frame=global.itemframe
+			else if frmax=8 {frame=global.frame88}
 				x=owner.x-8
 				y=owner.bbox_top-16-16
 				if alarm0>2 {owner.piped=1 owner.sprite="pose" with owner set_sprite("pose")} else owner.piped=0
@@ -212,7 +215,7 @@ switch(global.cobjectentrypoint){
 		
 		}
 		else if (global.cobjectlemontype=1) {
-            i=show_contextmenu("Collectible Type:|-|Purple Coin|Green Coin|Triangle|Note|Letter B|Letter O|Letter W|Letter L",0)
+            i=show_contextmenu("Collectible Type:|-|Purple Coin|Rupee|Triforce Shard|Note|Letter B|Letter O|Letter W|Letter L",0)
             if (!i) global.cobjectlemonreturnvalue=  global.cobjectlemondefault
             else global.cobjectlemonreturnvalue=  string(i-1)
 		
@@ -230,8 +233,8 @@ switch(global.cobjectentrypoint){
 			global.cobjectlemonreturnvalue="Offset Y: " + string(i)
 		}else if type==1{
 			if i=="0" global.cobjectlemonreturnvalue= "Purple Coin";
-			if i=="1" global.cobjectlemonreturnvalue=  "Green Coin";
-			if i=="2" global.cobjectlemonreturnvalue=  "Triangle";
+			if i=="1" global.cobjectlemonreturnvalue=  "Rupee";
+			if i=="2" global.cobjectlemonreturnvalue=  "Triforce Shard";
 			if i=="3" global.cobjectlemonreturnvalue=  "Note";
 			if i=="4" global.cobjectlemonreturnvalue=  "Letter B";
 			if i=="5" global.cobjectlemonreturnvalue=  "Letter O";

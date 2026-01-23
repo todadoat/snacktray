@@ -1,4 +1,4 @@
-gametitle="Boll Deluxe: Snack Tray"
+gametitle="Boll Deluxe: Snack Bowl"
 version="0.1"
 JOY=2
 vk_mouseback=5

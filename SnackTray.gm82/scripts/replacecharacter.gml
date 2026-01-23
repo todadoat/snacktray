@@ -61,7 +61,7 @@ if (what="less" || what="all") {
 
 if (what="more" || what="all") { 
     NUKEEMALL=0
-    repeat (32000) {
+    repeat (3200) {
         global.animdat[slot,NUKEEMALL]=0
         global.boxwidth[slot,NUKEEMALL]=0
         global.boxheight[slot,NUKEEMALL]=0

@@ -27,9 +27,9 @@ switch(global.cobjectentrypoint){
 
 		
 		switch (realtype){
-			case 0: if stomped ypos=1 else if die ypos=2  break;
+			case 0: ypos=0 if stomped ypos=1 else if dying ypos=2  break;
 			case 1: ypos=3 if dying ypos=7 break;
-			case 2: if hsp=0 ypos=4 else waking ypos=5 else dying ypos=7 else ypos=6  break;
+			case 2: if hsp=0 ypos=4 else if waking ypos=5 else if dying ypos=7 else ypos=6  break;
 		
 		}
 		
@@ -44,7 +44,7 @@ switch(global.cobjectentrypoint){
 		}
 		
 
-		draw_sprite_part_ext(sheet,0,8+16*round(frame),7+40*off_y,39,39,x-20,y-23,1,1,c_white,1)
+		draw_sprite_part_ext(sheet,0,8+40*round(frame),7+40*off_y,39,39,x-20,y-23,1,1,c_white,1)
 
 		
 
@@ -74,10 +74,15 @@ switch(global.cobjectentrypoint){
 
 
 		realtype=unreal(data[1],0)
+		switch (realtype){
+			case 0: off_y=0 break;
+			case 1: off_y=3 break;
+			case 2: off_y=4 break;
 		
-		off_y=realtype	
+		}
+
 		
-		draw_sprite_part_ext(sheet,0,190,7+28*off_y,16,16,x*16,y*16,1,1,c_white,1)
+		draw_sprite_part_ext(sheet,0,190,7+40*off_y,39,39,x*16+unreal(data_2,0),y*16+unreal(data_3,0),1,1,c_white,1)
 
 	break;
 	

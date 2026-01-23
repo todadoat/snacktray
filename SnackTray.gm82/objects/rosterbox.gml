@@ -300,7 +300,23 @@ if (ready) {
             draw_sprite_part(iconbg,0,0,46,48,2,x-24,y-24+46)
         }
 
-        draw_sprite_part(icon,0,1+48*floor(frame/frh),1+floor(frame mod frh)*48,46,46,x-23,y-23)
+        //draw_sprite_part(icon,0,1+48*floor(frame/frh),1+floor(frame mod frh)*48,46,46,x-23,y-23)
+        //bye bye icon!!!
+
+
+        //Let's NOT give it a backdrop to work with. - Evil -S-
+        name=global.charname[global.option[p2]]
+        //This probably isn't the best way to handle this but it's how it used to be.
+        sheet=skindat("tex_"+name+string(global.reroutedsizes[p2,1])+string(p2))
+        
+        size=1
+
+        alpha=1 //transparency isn't given otherwise to 1.8/1.7
+
+        sprite='walk'
+
+        event_perform_object(player,ev_draw,0)
+
 
         shader_reset()
 

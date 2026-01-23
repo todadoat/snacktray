@@ -6,7 +6,7 @@ stand,wait,lookup,crouch,balance,pose,knock,dead,walk,run,maxrun,push,brake,jump
 release,skid,spin,spindash,insta,dash,boom,firedash,trick,peelout,peelrelease
 
 #define movelist
-If you show up you're stupid :)
+There is no such thing
 
 #define pausecontrol
 
@@ -25,12 +25,12 @@ with other {
 	draw_sprite(spr_pausesprblank,0,-view_xport[view_current]*s,-view_yport[view_current]*s)
 
 	//draw_sprite(unknown,0,16,16)
-	draw_omitext(0,0,"Hi I'm Testdummy and THIS is my pause screen!# Press backspace to unpause, and press cbut to instead use pausehudsplice and rehabilitate the normal pause controls.")
+	draw_omitext(0,0,"Hi Im Testdummy and THIS is my pause screen!# Press backspace to unpause, and press cbut to instead use pausehudsplice and rehabilitate the normal pause controls.")
 }
 
 #define pausehudsplice
 
-	draw_omitext(0,32,"Hi I'm Testdummy and THIS is my pause screen!!!")
+	draw_omitext(0,32,"Hi Im Testdummy and THIS is my pause screen!!!")
 	draw_sprite(spr_emerald,0,global.screenwidth/2,global.screenheight-64)
 
 #define rosterorder

@@ -35,6 +35,7 @@ repeat (8) {
         bpm=lg.bpm[i]
         bpb=lg.bpb[i]
         lightlevel=lg.lightlevel[i]
+        horizon-=16
         if horizon<=0 horizon=-verybignumber
         //else horizon+=16
         if (water==16) {water=-16 with (instance_create(offx,0,barrier)) {image_xscale=(other.x-x)/16}}
@@ -66,7 +67,11 @@ repeat (8) {
             if (current_time>global.loadtime+64) loadtext()
         }
     }
-
+    //make sure the normal loaded in folks utilize regular shtuff
+    with camblock {image_xscale=unreal(sizex,1) image_yscale=unreal(sizey,1) lemonplaced=1}
+    with camsecret {image_xscale=unreal(sizex,1) image_yscale=unreal(sizey,1)  lemonplaced=1}
+    //cement(camblock,0)
+    //cement(camsecret,0)
     j=0
     k=0
     if lemongrab.compat="SnackTray2"

@@ -149,17 +149,21 @@ repeat (8) {
     lemongrab.bpb[r]=bpb
     lemongrab.lightlevel[r]=lightlevel
     
+    global.oldlemonbitmap=true
     i=0
+    repeat (72) {
+        
+        lemongrab.cambitmap[r,i]=readbyte()
+        lemongrab.cambitmap2[r,i]=readbyte()
+        i+=1
+    }
+    if trulv="SnackTray2"{
     repeat (72) {
         lemongrab.cambitmap[r,i]=readbyte()
         lemongrab.cambitmap2[r,i]=readbyte()
         i+=1
     }
-    if trulv="SnackTray2"
-    repeat (72) {
-        lemongrab.cambitmap[r,i]=readbyte()
-        lemongrab.cambitmap2[r,i]=readbyte()
-        i+=1
+    global.oldlemonbitmap=true
     }
     
     //read entities

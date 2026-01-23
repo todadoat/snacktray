@@ -18,6 +18,8 @@
 	|tex_grid
 	|tex_runes
 +mask
+	|spr_camblock16
+	|spr_camsecret16
 	|spr_16
 	|spr_nslopr
 	|spr_nsloprs
@@ -541,6 +543,8 @@
 		|spr_191hill
 		|spr_191fence
 		|spr_bouncymush
+		|spr_camblock
+		|spr_camsecret
 	+gimmicks
 		|spr_polflower
 		|spr_pollen

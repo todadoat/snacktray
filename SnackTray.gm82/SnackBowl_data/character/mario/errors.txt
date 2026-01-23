@@ -1,2 +1,0 @@
-COMPILATION ERROR in string to be executedError in code at line 36:   
- if prevframe<0 prevframe+4                            ^at position 27: Assignment operator expected.

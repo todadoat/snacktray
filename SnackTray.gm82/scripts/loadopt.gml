@@ -35,9 +35,9 @@ if (file_exists(global.savefile)) {
 
     if (!ds_map_read_safe(temp,str)) {ds_map_destroy(temp) return 0}
     else {
-        if (!is_string(settings("version"))) {ds_map_destroy(temp) return 0}
-        else if (settings("version")!=version) {ds_map_destroy(temp) return 0}
-        else {
+        //if (!is_string(settings("version"))) {ds_map_destroy(temp) return 0}
+        //else if (settings("version")!=version) {ds_map_destroy(temp) return 0}
+        /*else */{
             k=ds_map_find_first(temp)
             repeat (ds_map_size(temp)) {
                 settings(k,ds_map_find_value(temp,k))

@@ -4,6 +4,8 @@ with (invisibox) x=xstart
 with (pulley) {john_x=x x=xstart}
 with (pulley_sub) {john_x=x x=xstart}
 
+instance_deactivate_object(camblock)
+instance_deactivate_object(camsecret)
 instance_deactivate_object(collider)
 instance_deactivate_object(brick)
 instance_deactivate_object(ground)
