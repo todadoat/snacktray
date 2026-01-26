@@ -436,6 +436,17 @@ dontdrawdefaulthud=true
 sonic_additive_firedash=funnytruefalse(playerskindat(p2,name+" additive firedash"))
 DECK_MAX=9
 
+DECK_EMERL=0
+DECK_SONIC=1
+DECK_MARIO=2
+DECK_TAILS=3
+DECK_LUIGI=4
+DECK_KNUX=5
+DECK_WARIO=6
+DECK_ASHURA=7
+DECK_SOMARI=8
+DECK_MAX=9
+
 #define stop
 if (skidding) {soundstop(name+"skid") skidding=0}
 star=0
@@ -631,6 +642,17 @@ else if (jump) {
 #define controls
 com_inputstack()
 
+if (global.emerl_equip_move[p2]=DECK_SONIC || global.emerl_equip_move[p2]=DECK_TAILS || global.emerl_equip_move[p2]=DECK_KNUX || global.emerl_equip_move[p2]=DECK_ASHURA || global.emerl_equip_move[p2]=DECK_SOMARI)
+{ //Tehse are all rollers, where their default fall is 0.
+	rollers=1
+	
+} else rollers=0
+if (global.emerl_equip_jump[p2]=DECK_SONIC || global.emerl_equip_jump[p2]=DECK_TAILS || global.emerl_equip_jump[p2]=DECK_KNUX || global.emerl_equip_jump[p2]=DECK_ASHURA || global.emerl_equip_jump[p2]=DECK_SOMARI)
+{ //Tehse are all rollers, where their default fall is 0.
+	spinattack=1
+	
+} else spinattack=0
+
 tempbrick=0
 
 //situations in which it should skip controls entirely
@@ -708,18 +730,22 @@ com_di()
 //code for specifically the a button
 if ((abut || jumpbufferdo) && (!springin)) {
     if (!jump||fall=69||grabflagpole||tailsgrab||(fall!=0 && size==9 && !cloverjumped && !insted)) { //jump
-        if (up && hsp=0 && fall!=69 && !jump) com_startpeelout()
-        else if (crouch && fall!=69)          com_startspindash()
+        if (up && hsp=0 && fall!=69 && !jump && global.emerl_equip_move[p2]=DECK_SONIC) com_startpeelout()
+        else if (crouch && fall!=69 && rollers)          com_startspindash()
 		else if !peelready {
             jumpsnd=playsfx(name+"jump")
             vsp=-5.2-0.2*super
+			if global.emerl_equip_jump[p2]==DECK_KNUX vsp+=1
+			if global.emerl_equip_jump[p2]==DECK_EMERL vsp+=2
+			if global.emerl_equip_jump[p2]==DECK_LUIGI vsp-=1
+			
+			
             onvine=0
             if (water) vsp=-sqrt(sqr(vsp)*wf+2)
 			if tailsgrab{
 				tailsgrab=0
 				graber.tailsgrabbed=0
 			}
-			if (fall!=0 && size==9 && !cloverjumped && !insted) cloverjumped=1
 			grabflagpole=0
 			tricked=0
             latchedtoflagpole=0
@@ -738,9 +764,13 @@ if ((abut || jumpbufferdo) && (!springin)) {
 				*/
 				uncurled=0
 				sprite_angle=0
-
+			
             jump=1
-            fall=0
+
+            fall=!spinattack
+			
+			
+			
             braking=0
             canstopjump=1
             dashtimer=60
@@ -752,102 +782,64 @@ if ((abut || jumpbufferdo) && (!springin)) {
         }
     } else if !peelready { //air jumps
 
-		if is_water() && water{
-			jumpsnd=playsfx(name+"jump")
-			vsp=-2.2-0.2*super
-			fall=0
-			//WOW WATER SONIC CAN SWIM??? CRAAAZYYYYY
-		}
 
 
-        if ((!insted|| (is_water() && !waterinsted)) && !clover_climb &&(fall=0 || fall=10)) {
-            if insted waterinsted=1
-			insted=1
-            airdash=0
-            firedash=0
-            boost=0
-             if is_water() && fall=10 {
-				
-				 {
-					i=shoot(x,y+12,psmoke)  i.hspeed=-2 i.vspeed=2
-					i=shoot(x,y+12,psmoke)  i.hspeed=2 i.vspeed=2
-					i=shoot(x,y+12,psmoke)  i.hspeed=-2 i.vspeed=-2 i.gravity=0.5
-					i=shoot(x,y+12,psmoke)  i.hspeed=2 i.vspeed=-2 i.gravity=0.5
-					if vsp>5{
-						i=shoot(x,y+12,psmoke)  i.hspeed=-3 i.vspeed=-4 i.gravity=0.5
-						i=shoot(x,y+12,psmoke)  i.hspeed=3 i.vspeed=-4 i.gravity=0.5
+		///INSTA Shield
+		switch (global.emerl_equip_jumpaction[p2]) {
+			case DECK_SONIC:
+				if (!insted &&(fall=!spinattack || fall=10)) {
+					insted=1
+					airdash=0
+					firedash=0
+					boost=0
+					{insta=20+water*10 fall=0}
+					playsfx(name+"insta")
+				}
+			break;
+			case DECK_EMERL:
+				if (!insted &&(fall=!spinattack || fall=10)) {
+					insted=1
+					airdash=0
+					firedash=0
+					boost=0
+					//{insta=20+water*10 fall=0}
+					fall=0
+					playsfx(name+"insta")
+					vsp=-3
+					hsp=maxspd*esign(h,xsc)*1.25
+				}
+			break;
+			case DECK_TAILS:
+				if (fly) {
+					spritekeep=0
 					
+					if (!tired) fly=30
+					if (down) {fly=0 fall=0 }
+				} else {
+					if (fall=!spinattack) {
+						spritekeep=0
+						fly=30
+						tricking=0
+						sprung=0
+						sproinged=0
+						bouncetrick=0
+						tricking=0
+								
+						if fall=1 vsp=-1
+						fall=1
+						tired=(tails_energy<1)
+						if tired fly=1
+						mc=0
+						if (inst) {stopsfx(inst) inst=0}
 					}
 				}
-				vsp=-abs(vsp)
-			 
-			 
-			 }
-			if is_ice() && fall=0{vsp=-2 fall=10 insted=0}
-			else if is_ice() && fall=10 {
-				vsp=-4.2 fall=0
-				playsfx("sonicrelease",0,0.5)  
-				proj_type="psmok"
-				i=shoot(x+16*xsc,y+8) i.hspeed=0 i.vspeed=4
-				i.growsize=-1
-				i.depth=depth+2
-				i=shoot(x+16*xsc,y+8) i.hspeed=0 i.vspeed=4
-				i.growsize=1
-				i.depth=depth-2
-
-				i=shoot(x+16*xsc,y) i.hspeed=xsc*-2 i.vspeed=2
-				i.growsize=-1
-				i.depth=depth+2
-				i.image_xscale=0.75i.image_yscale=0.75
-				i=shoot(x+16*xsc,y) i.hspeed=xsc*2 i.vspeed=2
-				i.growsize=1
-				i.image_xscale=0.75 i.image_yscale=0.75
-				i.depth=depth-2
-
-				i=shoot(x,y-16) i.hspeed=xsc*-3 i.vspeed=4
-				i.growsize=-1
-				i.depth=depth+2
-				i.image_xscale=0.5i.image_yscale=0.5
-				i=shoot(x+16*xsc) i.hspeed=xsc*3 i.vspeed=4
-				i.growsize=1
-				i.image_xscale=0.5i.image_yscale=0.5
-				i.depth=depth-2
-
-			}
-		else {insta=20+water*10 fall=0}
-		if is_thunder() {
-			i=shoot(x,y+8)
-					i.hspeed=0 i.vspeed=2
-					i.growsize=-1 i.depth=depth-1
-			vsp=-4
-			proj_type="pstar"
-			i=fire_projectile(x,y) i.hspeed=-2 i.vspeed=2
-			i=fire_projectile(x,y) i.hspeed=2 i.vspeed=2
-			i=fire_projectile(x,y) i.hspeed=-2 i.vspeed=-2
-			i=fire_projectile(x,y) i.hspeed=2 i.vspeed=-2
-
-
-		} 
-            if (super) {
-                braking=0
-                sprung=0
-                d=point_direction(0,0,right-left,down-up)
-                if (!right && !left && !down && !up) d=90
-                hsp+=lengthdir_x(4,d)
-                vsp+=lengthdir_y(4,d)-1
-                vsp=median(-7,vsp,7)
-                throwsparks(x,y)
-				proj_type="pstar"
-				i=fire_projectile(x,y) i.hspeed=-2 i.vspeed=2
-				i=fire_projectile(x,y) i.hspeed=2 i.vspeed=2
-				i=fire_projectile(x,y) i.hspeed=-2 i.vspeed=-2
-				i=fire_projectile(x,y) i.hspeed=2 i.vspeed=-2
-                screenshake(x,2)
-                
-            } else if !is_ice() playsfx(name+"insta")
-        }
-		
-		if fall && !insted {
+				
+			
+			
+			break;
+				
+		}
+		if fall && !insted && spinattack && !fly{
 			playsfx(name+"trick",false,3)	
 			com_dorecurl()
 		}
@@ -891,11 +883,11 @@ if (!akey) {
 
 //code for specifically the b button
 if (bbut) {
-    if (spindash || (crouch)) {
+    if (spindash || (crouch))&& rollers {
 		com_startspindash()
 	} else {
-		if (jump && (fall=0 || fall=2 || fall=5) && !airdash && !firedash)&&!bouncetrick {
-			if global.emerl_bmove[p2]=0{
+		if (jump && (fall=0 || fall=2 || fall=5) && !airdash && !firedash){
+			if global.emerl_bmove[p2]=DECK_SONIC{
 				if up && fall==0{
 					uncurled=1
 					fall=1
@@ -964,7 +956,7 @@ if (bbut) {
 
 
 if (cbut) {
-if !jump && (spindash||crouch)
+if !jump && (spindash||crouch) && rollers
 com_startspindash()
 }
 
@@ -1025,8 +1017,50 @@ case DECK_SOMARI: basespd=4 break;
 }
 
 
+switch (global.emerl_equip_move[p2]){
+	case DECK_SONIC:	
+		maxspd=(4+ (airdash)*0.5 +boost + firedash/24)*(wf+(0.5*water)+(0.5*(size==7)*water))
+	break;
+	case DECK_TAILS:
+	case DECK_KNUX:
+		maxspd=(3.5+ (airdash)*0.5 +boost + firedash/24)*(wf+(0.5*water)+(0.5*(size==7)*water))
+	break;
+	case DECK_EMERL:
+		maxspd=(1.75 + (airdash)*0.5 +boost + firedash/24)*(wf+(0.5*water)+(0.5*(size==7)*water))
+	break;
+	case DECK_MARIO:
+		
+	
+		maxspd=(1.5+(bkey*1.5)+water+(size==5)*0.55+slipnslide+!!spin)*(wf+((carry/2)*underwater()))
+		
+		if abs(hsp>=3){
+			mariopspeed_counter+=1
+			if mariopspeed_counter>60 maxspd+=1
+		}else if!jump mariopspeed_counter=0
+		
+		if !bkey && abs(hsp)>1.5 && !jump {
+			hsp*=0.95
+			if abs(hsp)<1.5 hsp=1.5
+		
+		}
+		
+	break;
+	
+	case DECK_LUIGI:
+		maxspd=(1.75+(bkey*1.75)+water+(size==5)*0.55+slipnslide+!!spin)*(wf+((carry/2)*underwater()))		
+		if !bkey && abs(hsp)>1.5 && !jump {
+			hsp*=0.95
+			if abs(hsp)<1.5 hsp=1.5
+		
+		}
+	break;
+	case DECK_WARIO:
+		maxspd=(2.25+water+swim+slipnslide+roll+1.5*(bash || buttslide))*wf //this speed is actually buffed from Emerl's own, by the way!
+	break;
+	
 
-maxspd=(3.5 + !!size*0.5 + (airdash)*0.5 +boost + firedash/24)*(wf+(0.5*water)+(0.5*(size==7)*water))
+}
+if vsp<-1.5 && fly && abs(hsp)>2 hsp*=0.95
 
 vsp=min(7+downpiped,vsp)
 calcmoving()
@@ -1041,12 +1075,18 @@ if (!dead && !grabflagpole) {
     if (jump) {
         //gravity
         balance=0
-        if (fall=10 && super) {
-            vsp=0.01
-			hsp=maxspd*sign(xsc)
-        } else if fall!=69 {
+        if (fly) {
+			if (fly>1) vsp-=0.05
+			else vsp+=0.05
+			if down vsp+=0.3
+			vsp=median(2+down,vsp,-2)
+        } else if superdashactive {
+			vsp*=0.7 
+		} else if fall!=69 {
 			vsp+=(0.15 - (size == 5 && vsp > 0.5) * 0.03) *wf
         }
+		
+		
 		if elecdash vsp=0
 		peelout=0
 		vine_climbing()
@@ -1067,6 +1107,7 @@ if (!dead && !grabflagpole) {
 		sproinged=0 uncurled=0 tricking=0 rampof=0 
 		bouncetrick=0
 		dodashtrick=0
+		fly=0
 		if vsp>0 vsp=0
 		//sprite angle and offsetting visually into sloped ground.
 		sprite_angle=0
@@ -1154,7 +1195,21 @@ weight=0.4+0.4*(size!=0 && size!=5)
 bartype=0
 
 maxe=8
-
+tails_maxe=2*(2+!!size)
+if !jump tails_energy=tails_maxe
+if (fly) {
+	fly=max(1,fly-1)
+	if !water {tails_energy-=0.5/90
+	if vsp<=-1.5 tails_energy-=1.5/90
+	if vsp<=-2 tails_energy-=1/90
+	}
+	if (tails_energy=0) { tired=1}
+	
+} else {
+	tired=0
+	mc=0
+	if (inst) {stopsfx(inst) inst=0}
+}
 
 // VULNERABILITY AND PLAYER COLLISION
 
@@ -1183,7 +1238,10 @@ if maxwait{
 	else if sprite!="wait" waittime=0
 }
 
-
+if (fly){
+soundframe-=1
+if soundframe<0{if underwater() playsfx("tailsswim") else if tired playsfx("tailstired")else playsfx("tailsfly") soundframe=15 if tired soundframe=30}
+}
 
 //spindash/spin
 global.coll=id
