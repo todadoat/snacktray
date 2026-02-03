@@ -15,6 +15,9 @@ c1=position_meeting(x-8,y+24,groundsemi) || x=region.lefthand || y=region.ky-16
 c3=position_meeting(x+24,y+24,groundsemi) || x=region.x-16 || y=region.ky-16
 
 c2=position_meeting(x+8,y+24,groundsemi) || y=region.ky-16
+
+//used in terrain type 5/ terrain-2top
+superc8=position_meeting(x+8,y-24,groundsemi) || place_meeting(x,y-24,phaser).nslop
 #define Other_11
 /*"/*'/**//* YYD ACTION
 lib_id=1
@@ -58,11 +61,15 @@ exit
 instance_destroy()
 exit
 }
+if global.terrainsheettype[biome]==5 usessuper=true
+else usessuper=false
 
-
+if usessuper by=16*superc8
 //It's like calculators/numpad 1 is bottomleft 2 is bottommid 3 is bottomright....
 
-if (c1 && c2 && c3 && c4 && c6 && c7 && c8 && c9) {/*middle fill*/ tile_bake(sheet,32+bx,32+by+176,16,16,x,y,1000004)}
+if (c1 && c2 && c3 && c4 && c6 && c7 && c8 && c9) {/*middle fill*/ 
+    tile_bake(sheet,32+bx,32+by+176,16,16,x,y,1000004)
+}
 else if (!c8 && !c4 && !c6 && !c2) {/*lone tile*/ tile_bake(sheet,88,88+176,32,32,x-8,y-8,1000004)}
 else if (!c8 && !c2) {
     if (!c4) {/*platform left*/ tile_bake(sheet,8,88+176,24,32,x-8,y-8,1000004)}

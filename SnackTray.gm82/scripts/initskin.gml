@@ -19,6 +19,7 @@ with (globalmanager) {
 
     skindir=global.workdir+"SnackBowl_skins\"
     moddir=global.workdir+"SnackBowl_mods\"
+    if global.bdxmodfolder moddir=global.workdir+"mods\"
 
     directory_create(skindir)
     directory_create(moddir)

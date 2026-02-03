@@ -6,10 +6,6 @@ applies_to=self
 */
 
 
-
-
-
-
 if (system_prestart()) event_user(0)
 #define Other_10
 /*"/*'/**//* YYD ACTION

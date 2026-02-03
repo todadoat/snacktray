@@ -15,11 +15,14 @@ c3=position_meeting(x+24,y+24,groundblock) || position_meeting(x+24,y+21,slopegr
 c8=position_meeting(x+8,y-8,groundblock) || position_meeting(x+8,y-8,slopeground) || y=0
 c2=position_meeting(x+8,y+24,groundblock) || position_meeting(x+24,y-8,uslopeground) || y=region.ky-16
 
+//used in terrain type 5/ terrain-2top
+superc8=position_meeting(x+8,y-24,groundblock) || position_meeting(x+8,y-24,slopeground) || y=0
+
 if y<=8{ //its an 8 just in case there's some dumb bullshit dumb shit thats DUMB and BULLSHIT
     c8=true // c5 is literally myself, c'mon
     c7=c4
     c9=c6
-
+    superc8=true
 }
 #define Other_11
 /*"/*'/**//* YYD ACTION
@@ -66,10 +69,14 @@ instance_destroy()
 exit
 }
 
-
+if global.terrainsheettype[biome]==5 usessuper=true
+else usessuper=false
+if usessuper by=16*superc8
 //It's like calculators/numpad 1 is bottomleft 2 is bottommid 3 is bottomright....
 
-if (c1 && c2 && c3 && c4 && c6 && c7 && c8 && c9) {/*middle fill*/ tile_bake(sheet,32+bx,32+by,16,16,x,y,999998)}
+if (c1 && c2 && c3 && c4 && c6 && c7 && c8 && c9) {/*middle fill*/ 
+    tile_bake(sheet,32+bx,32+by,16,16,x,y,999998)
+}
 else if (!c8 && !c4 && !c6 && !c2) {/*lone tile*/ tile_bake(sheet,88,88,32,32,x-8,y-8,999998)}
 else if (!c8 && !c2) {
     if (!c4) {/*platform left*/ tile_bake(sheet,8,88,24,32,x-8,y-8,999998)}

@@ -24,6 +24,11 @@ if file_exists(wskin+"terrain.png")  {
         case 208: global.terrainsheettype[global.biomes+1]=4  break; //4x4 minisheet.
         default: global.terrainsheettype[global.biomes+1]=0
     }
+} else if file_exists(wskin+"terrain-2top.png")  {
+    background_replace(global.masterterrain[global.biomes+1],wskin+"terrain-2top.png",1,0)
+    //Terrain type... is always 5 because that's kind of the point!
+    global.terrainsheettype[global.biomes+1]=5
+    //With this terrain type, the 2nd line is used for a secondary c2, basically.
 }
 
 if file_exists(wskin+"objects.png")  background_replace(global.masterobjects[global.biomes+1],wskin+"objects.png",1,0)
@@ -47,7 +52,7 @@ for (i=0;i<global.biomes;i+=1) {
         if (loadspec && !(loadspec & (1 << i))) // skip if loadspec says this biome isn't needed
             continue
     }
-    
+
     //avoid continuously loading the default sheet
     fn=wskin+"biomes\"+global.biome[i]+"\tiles.png"
     if (file_exists(fn)) {background_replace(global.master[i],fn,1,0) }
@@ -145,10 +150,10 @@ if (i=0) {
 skindat("anims"         ,funnytruefalse(skindat("settings snes animations"      )))
 skindat("chkrng"        ,funnytruefalse(skindat("settings checkpoint ring"      )))
 skindat("bricd"         ,funnytruefalse(skindat("settings bricks explode"       )))
-skindat("toadjump"      ,funnytruefalse(skindat("settings retainer jump"        )))    
+skindat("toadjump"      ,funnytruefalse(skindat("settings retainer jump"        )))
 skindat("signpost"      ,funnytruefalse(skindat("settings sonic signpost"       )))
 skindat("itemflip"      ,funnytruefalse(skindat("settings items turn around"    )))
-skindat("groundstag"    ,funnytruefalse(skindat("settings stagger ground"       )))               
+skindat("groundstag"    ,funnytruefalse(skindat("settings stagger ground"       )))
 skindat("gameoverfade"  ,funnytruefalse(skindat("settings game over fade"       )))
 skindat("grasslayer"    ,funnytruefalse(skindat("settings layered grass"        )))
 skindat("mariotime"     ,funnytruefalse(skindat("settings mario timer"          )))
@@ -160,30 +165,30 @@ skindat("nofade"        ,funnytruefalse(skindat("settings disable fades"        
 skindat("classflag"     ,funnytruefalse(skindat("settings classic flag"         )))
 skindat("chopbar"       ,funnytruefalse(skindat("settings choppy firebars"      )))
 skindat("liqsync"       ,funnytruefalse(skindat("settings sync liquid animation")))
-skindat("skipchange"    ,funnytruefalse(skindat("settings skip level card"      )))    
+skindat("skipchange"    ,funnytruefalse(skindat("settings skip level card"      )))
 
 skindat("uppercase"     ,funnytruefalse(skindat("lang uppercase text"           )))
 
 skinstr("langthanks"    ,skindat("lang thank you"   ))
 skinstr("langbut"       ,skindat("lang but"         ))
-    
+
 if (settings("mirror")) skindat("left",!skindat("left"))
-    
+
 skindat("itspd",median(1,round(unreal(skindat("settings item anim speed"),8)),64))
 skindat("bgspd",median(1,round(unreal(skindat("settings bg anim speed"),8)),256))
-    
-skindat("hurrytime",median(1,round(unreal(skindat("music hurry timer"),30)),100))                                                                                                              
+
+skindat("hurrytime",median(1,round(unreal(skindat("music hurry timer"),30)),100))
 skindat("deathmusic",funnytruefalse(skindat("music music continues after death")))
-skindat("nofast",!funnytruefalse(skindat("music fast music")))  
-skindat("bossmusic",funnytruefalse(skindat("music boss music"))) 
+skindat("nofast",!funnytruefalse(skindat("music fast music")))
+skindat("bossmusic",funnytruefalse(skindat("music boss music")))
 skindat("autofast",power(root12of2,median(0,unreal(skindat("music automatic fast music semitones"),0),12)))
-    
+
 skindat("voffset",median(-64,unreal(skindat("settings vertical offset"),8),64))
 
 skindat("walpha",median(0.1,unreal(skindat("settings water alpha"),1),1))
-    
+
 skindat("walkin",funnytruefalse(skindat("settings walk into castle")))
-    
+
 skindat("ealign",unreal(skindat("settings hud energy alignment"),1))
 skindat("hudlayer",unreal(skindat("settings hud layer"),1))
 
@@ -216,11 +221,11 @@ replacesound("systemfaderoom",wskin+"sfx\systemfaderoom.wav")
 replacesound("systemregister",wskin+"sfx\systemregister.wav")
 
 replacesound("item1up",wskin+"sfx\item1up.wav")
-replacesound("itemappear",wskin+"sfx\itemappear.wav")        
+replacesound("itemappear",wskin+"sfx\itemappear.wav")
 replacesound("itemblockbreak",wskin+"sfx\itemblockbreak.wav")
 replacesound("itembridgebreak",wskin+"sfx\itembridgebreak.wav")
-replacesound("itemblockbump",wskin+"sfx\itemblockbump.wav")  
-replacesound("itemcoin",wskin+"sfx\itemcoin.wav")  
+replacesound("itemblockbump",wskin+"sfx\itemblockbump.wav")
+replacesound("itemcoin",wskin+"sfx\itemcoin.wav")
 replacesound("itemring",wskin+"sfx\itemring.wav")
 replacesound("itemcoinping",wskin+"sfx\itemcoinping.wav")
 replacesound("itemcoinred",wskin+"sfx\itemcoinred.wav")
@@ -244,8 +249,8 @@ replacesound("itempowerup5",wskin+"sfx\itempowerup5.wav")
 replacesound("itemminimush",wskin+"sfx\itemminimush.wav")
 replacesound("itemstar",wskin+"sfx\itemstar.wav")
 replacesound("itemspring",wskin+"sfx\itemspring.wav")
-replacesound("itemsprong",wskin+"sfx\itemsprong.wav")  
-replacesound("itemclock",wskin+"sfx\itemclock.wav") 
+replacesound("itemsprong",wskin+"sfx\itemsprong.wav")
+replacesound("itemclock",wskin+"sfx\itemclock.wav")
 replacesound("itemrespawn",wskin+"sfx\itemrespawn.wav")
 replacesound("itemcheck",wskin+"sfx\itemcheck.wav")
 replacesound("itemspecial",wskin+"sfx\itemspecial.wav")
@@ -275,17 +280,17 @@ replacesound("itemgearplatform",wskin+"sfx\itemgearplatform.wav")
 replacesound("itemwarpboxenter",wskin+"sfx\itemwarpboxenter.wav")
 replacesound("itemwarpboxexit",wskin+"sfx\itemwarpboxexit.wav")
 
-replacesound("specialfall",wskin+"sfx\specialfall.wav")   
-replacesound("specialbump",wskin+"sfx\specialbump.wav") 
+replacesound("specialfall",wskin+"sfx\specialfall.wav")
+replacesound("specialbump",wskin+"sfx\specialbump.wav")
 replacesound("specialcoin",wskin+"sfx\specialcoin.wav")
 replacesound("specialnoise",wskin+"sfx\specialnoise.wav")
 replacesound("specialtele",wskin+"sfx\specialtele.wav")
 replacesound("specialpiston",wskin+"sfx\specialpiston.wav")
 replacesound("specialpiston2",wskin+"sfx\specialpiston2.wav")
 replacesound("specialbounce",wskin+"sfx\specialbounce.wav")
-replacesound("specialbumper",wskin+"sfx\specialbumper.wav")    
+replacesound("specialbumper",wskin+"sfx\specialbumper.wav")
 replacesound("specialbutton",wskin+"sfx\specialbutton.wav")
-replacesound("specialclock",wskin+"sfx\specialclock.wav")   
+replacesound("specialclock",wskin+"sfx\specialclock.wav")
 replacesound("specialspring",wskin+"sfx\specialspring.wav")
 replacesound("specialwin",wskin+"sfx\specialwin.wav")
 replacesound("specialgem",wskin+"sfx\specialgem.wav")
@@ -298,8 +303,8 @@ replacesound("enemykick",wskin+"sfx\enemykick.wav")
 replacesound("enemykill",wskin+"sfx\enemykill.wav")
 replacesound("enemystomp",wskin+"sfx\enemystomp.wav")
 replacesound("enemyfire",wskin+"sfx\enemyfire.wav")
-replacesound("enemybowserdown",wskin+"sfx\enemybowserdown.wav")  
-replacesound("enemybowserhurt",wskin+"sfx\enemybowserhurt.wav") 
+replacesound("enemybowserdown",wskin+"sfx\enemybowserdown.wav")
+replacesound("enemybowserhurt",wskin+"sfx\enemybowserhurt.wav")
 replacesound("enemyhammerthrow",wskin+"sfx\enemyhammerthrow.wav")
 replacesound("enemyspinythrow",wskin+"sfx\enemyspinythrow.wav")
 replacesound("enemybigexplode",wskin+"sfx\enemybigexplode.wav")
@@ -312,8 +317,8 @@ replacesound("enemybones",wskin+"sfx\enemybones.wav")
 replacesound("enemycrusher",wskin+"sfx\enemycrusher.wav")
 replacesound("enemyfirepiranhashoot",wskin+"sfx\enemyfirepiranhashoot.wav")
 
-replacesound("finalbowserdie",wskin+"sfx\finalbowserdie.wav")  
-replacesound("finalbowserfall",wskin+"sfx\finalbowserfall.wav")  
+replacesound("finalbowserdie",wskin+"sfx\finalbowserdie.wav")
+replacesound("finalbowserfall",wskin+"sfx\finalbowserfall.wav")
 
 replacesound("powblockhit",wskin+"sfx\powblockhit.wav")
 replacesound("smallbumper",wskin+"sfx\smallbumper.wav")
